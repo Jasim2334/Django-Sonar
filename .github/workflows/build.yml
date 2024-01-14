@@ -16,7 +16,7 @@ jobs:
         run: |
           echo "SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}"
           echo "SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}"
-          ping -c 5 ${{ secrets.SONAR_HOST_URL }}
+          curl -I ${{ secrets.SONAR_HOST_URL }}
       - name: Checkout code
         uses: actions/checkout@v2
         with:
