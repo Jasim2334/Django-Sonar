@@ -1,0 +1,33 @@
+name: SonarQube Scan
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Set up Docker
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Start SonarQube container
+      run: docker run -d --name sonarqube -p 9000:9000 sonarqube
+
+    - name: Wait for SonarQube to start
+      run: sleep 30
+
+    - name: SonarQube Scan
+      run: docker run --rm -e SONAR_TOKEN=${{secrets.SONAR_TOKEN}} -e SONAR_HOST_URL=${{secrets.SONAR_HOST_URL}} -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
+
+    - name: Stop SonarQube container
+      run: docker stop sonarqube
