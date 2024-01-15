@@ -27,7 +27,7 @@ jobs:
       run: sleep 30
 
     - name: SonarQube Scan
-      run: docker run --rm -e SONAR_TOKEN=${{secrets.SONAR_TOKEN}} -e SONAR_HOST_URL=${{secrets.SONAR_HOST_URL}} -v $(pwd):/usr/src sonarsource/sonar-scanner-cli:4.6
+      run: docker run --rm -e SONAR_TOKEN=${{secrets.SONAR_TOKEN}} -e SONAR_HOST_URL=${{secrets.SONAR_HOST_URL}} -v $(pwd):/usr/src sonarsource/sonar-scanner-cli:latest -X
 
     - name: Stop SonarQube container
       run: docker stop sonarqube
