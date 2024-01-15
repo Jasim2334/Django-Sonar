@@ -31,3 +31,9 @@ jobs:
 
     - name: Stop SonarQube container
       run: docker stop sonarqube
+
+    - name: Debugging Output
+      run: |
+        echo "SONAR_TOKEN: $SONAR_TOKEN"
+        echo "SONAR_HOST_URL: $SONAR_HOST_URL"
+
